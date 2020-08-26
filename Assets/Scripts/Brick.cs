@@ -16,6 +16,7 @@ public class Brick : MonoBehaviour
     private void Start()
     {
         this.sr = this.GetComponent<SpriteRenderer>();
+        this.sr.sprite = BricksManager.Instance.Sprites[this.Hitpoints - 1]; //delete later and set Init method
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -36,7 +37,7 @@ public class Brick : MonoBehaviour
         } 
         else 
         {
-            //sprite change
+            this.sr.sprite = BricksManager.Instance.Sprites[this.Hitpoints - 1];//sprite change
         }
     }
 

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,10 +26,52 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public GameObject gameOverScreen;
+
+    public int AvailableLives = 3;
+
+    public int Lives { get; set; }
+
     public bool IsGameStarted { get; set; }
 
     private void Start() 
     {
+        this.Lives = this.AvailableLives;
         Screen.SetResolution(540, 960, false);
+        Ball.OnBallDeath += OnBallDeath;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnBallDeath(Ball obj)
+    {
+        if (BallsManager.Instance.Balls.Count <= 0)
+        {
+            this.Lives--;
+
+            if(this.Lives < 1)
+            {
+                //show gameover screen
+                gameOverScreen.SetActive(true);
+            }
+            else
+            {
+                //reset balls
+                //stop game
+                //reload level
+
+                BallsManager.Instance.ResetBalls();
+                IsGameStarted = false;
+                BricksManager.Instance.LoadLevel(BricksManager.Instance.CurrentLevel);
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        Ball.OnBallDeath -= OnBallDeath;
     }
 }

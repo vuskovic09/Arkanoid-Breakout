@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,6 +59,16 @@ public class BallsManager : MonoBehaviour
                 GameManager.Instance.IsGameStarted = true;
             }
         }
+    }
+
+    public void ResetBalls()
+    {
+        foreach (var ball in this.Balls.ToList())
+        {
+            Destroy(ball.gameObject);
+        }
+
+        InitBall();
     }
 
     private void InitBall()

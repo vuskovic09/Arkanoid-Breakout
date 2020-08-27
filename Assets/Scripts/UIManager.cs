@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
         TargetText.text = $"Target:{Environment.NewLine}{BricksManager.Instance.RemainingBricks.Count} / {BricksManager.Instance.InitialBricksCount}";
     }
 
-    private void onDisable()
+    private void OnDisable()
     {
         Brick.OnBrickDestruction -= OnBrickDestruction;
         BricksManager.OnLevelLoaded -= OnLevelLoaded;

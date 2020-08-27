@@ -38,8 +38,18 @@ public class GameManager : MonoBehaviour
 
     public static event Action<int> OnLifeLost;
 
+    public AudioSource[] sounds;
+    public AudioSource music;
+    public AudioSource gameOverMusic;
+    public AudioSource victoryMusic;
+
     private void Start() 
     {
+        sounds = GetComponents<AudioSource>();
+        music = sounds[0];
+        gameOverMusic = sounds[1];
+        victoryMusic = sounds[2];
+        music.Play();
         this.Lives = this.AvailableLives;
         Screen.SetResolution(540, 960, false);
         Ball.OnBallDeath += OnBallDeath;
@@ -70,6 +80,8 @@ public class GameManager : MonoBehaviour
             if(this.Lives < 1)
             {
                 //show gameover screen
+                music.Stop();
+                gameOverMusic.Play();
                 gameOverScreen.SetActive(true);
             }
             else
@@ -89,6 +101,8 @@ public class GameManager : MonoBehaviour
 
     public void ShowVictoryScreen()
     {
+        music.Stop();
+        victoryMusic.Play();
         victoryScreen.SetActive(true);
     }
 

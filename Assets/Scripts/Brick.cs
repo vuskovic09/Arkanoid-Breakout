@@ -47,8 +47,8 @@ public class Brick : MonoBehaviour
         float buffSpawnChance = UnityEngine.Random.Range(0, 100f);
         float deBuffSpawnChance = UnityEngine.Random.Range(0, 100f);
         bool alreadySpawned = false;
-
-        if(buffSpawnChance <= CollectiblesManager.Instance.BuffChance)
+        
+        if (buffSpawnChance <= CollectiblesManager.Instance.BuffChance)
         {
             alreadySpawned = true;
             Collectible newBuff = this.SpawnCollectible(true);

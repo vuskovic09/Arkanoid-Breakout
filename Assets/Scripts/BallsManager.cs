@@ -38,9 +38,13 @@ public class BallsManager : MonoBehaviour
 
     public List<Ball> Balls { get; set; }
 
+    public AudioSource spawnBall;
+
     private void Start()
     {
         InitBall();
+
+        spawnBall = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -73,6 +77,8 @@ public class BallsManager : MonoBehaviour
 
     public void SpawnBalls(Vector3 position, int count)
     {
+        spawnBall.Play();
+
         for (int i = 0; i < count; i++)
         {
             Ball spawnedBall = Instantiate(ballPrefab, position, Quaternion.identity) as Ball;

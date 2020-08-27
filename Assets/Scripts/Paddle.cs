@@ -38,12 +38,22 @@ public class Paddle : MonoBehaviour
     public float paddleWidth = 2;
     public float paddleHeight = 0.28f;
 
+    public AudioSource[] sounds;
+    public AudioSource paddleShrink;
+    public AudioSource paddleHit;
+    public AudioSource paddleExpand;
+
     private void Start()
     {
         mainCamera = FindObjectOfType<Camera>();
         paddleInitialY = this.transform.position.y;
         sr = GetComponent<SpriteRenderer>();
         boxCol = GetComponent<BoxCollider2D>();
+
+        sounds = GetComponents<AudioSource>();
+        paddleShrink = sounds[0];
+        paddleHit = sounds[1];
+        paddleExpand = sounds[2];
     }
 
     private void FixedUpdate() {
@@ -64,6 +74,8 @@ public class Paddle : MonoBehaviour
     {
         if(coll.gameObject.tag == "Ball")
         {
+
+            paddleHit.Play();//hit sound
             Rigidbody2D ballRb = coll.gameObject.GetComponent<Rigidbody2D>();
             Vector3 hitPoint = coll.contacts[0].point;
             Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
@@ -95,6 +107,7 @@ public class Paddle : MonoBehaviour
 
         if (width > this.sr.size.x)
         {
+            paddleExpand.Play();//expand sound
             float currentWidth = this.sr.size.x;
             while (currentWidth < width)
             {
@@ -106,6 +119,7 @@ public class Paddle : MonoBehaviour
         }
         else
         {
+            paddleShrink.Play();//shrink sound
             float currentWidth = this.sr.size.x;
             while (currentWidth > width)
             {

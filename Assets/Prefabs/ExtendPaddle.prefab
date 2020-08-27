@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NewWidth: 2.5
+  paddleChangeSize: {fileID: 0}
 --- !u!1 &1072765379953414304
 GameObject:
   m_ObjectHideFlags: 0

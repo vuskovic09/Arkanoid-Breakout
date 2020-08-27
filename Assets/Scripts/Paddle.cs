@@ -38,10 +38,7 @@ public class Paddle : MonoBehaviour
     public float paddleWidth = 2;
     public float paddleHeight = 0.28f;
 
-    public AudioSource[] sounds;
-    public AudioSource paddleShrink;
     public AudioSource paddleHit;
-    public AudioSource paddleExpand;
 
     private void Start()
     {
@@ -50,10 +47,7 @@ public class Paddle : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         boxCol = GetComponent<BoxCollider2D>();
 
-        sounds = GetComponents<AudioSource>();
-        paddleShrink = sounds[0];
-        paddleHit = sounds[1];
-        paddleExpand = sounds[2];
+        paddleHit = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate() {
@@ -97,17 +91,16 @@ public class Paddle : MonoBehaviour
 
     public void StartWidthAnimation(float newWidth)
     {
+        this.PaddleIsTransforming = true;
         StartCoroutine(AnimatePaddleWidth(newWidth));
     }
 
     public IEnumerator AnimatePaddleWidth(float width)
     {
-        this.PaddleIsTransforming = true;
         this.StartCoroutine(ResetPaddleWidthAfterTime(this.extendShrinkDuration));
 
         if (width > this.sr.size.x)
         {
-            paddleExpand.Play();//expand sound
             float currentWidth = this.sr.size.x;
             while (currentWidth < width)
             {
@@ -119,7 +112,6 @@ public class Paddle : MonoBehaviour
         }
         else
         {
-            paddleShrink.Play();//shrink sound
             float currentWidth = this.sr.size.x;
             while (currentWidth > width)
             {

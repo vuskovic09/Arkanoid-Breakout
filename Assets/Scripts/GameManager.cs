@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameStarted { get; set; }
 
+    public static event Action<int> OnLifeLost;
+
     private void Start() 
     {
         this.Lives = this.AvailableLives;
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                OnLifeLost?.Invoke(this.Lives);
+
                 //reset balls
                 //stop game
                 //reload level

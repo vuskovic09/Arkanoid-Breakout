@@ -80,9 +80,10 @@ public class GameManager : MonoBehaviour
             if(this.Lives < 1)
             {
                 //show gameover screen
+                gameOverScreen.SetActive(true);
                 music.Stop();
                 gameOverMusic.Play();
-                gameOverScreen.SetActive(true);
+               
             }
             else
             {
